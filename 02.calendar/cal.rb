@@ -18,27 +18,20 @@ last_day = Date.new(params_year.to_i, params_mon.to_i, -1)
     wday = x.wday
     wday.times {print "\s\s\s"}
     print "\e[7m#{fast_day.day.to_s.rjust(2)}\e[0m\s" 
-
   elsif x == fast_day    
     wday = x.wday
     wday.times {print "\s\s\s"}
     print fast_day.day.to_s.center(3)
-  
   elsif x.saturday? && x == Date.today
     puts "\e[7m#{x.day.to_s.rjust(2)}\e[0m\s" 
-
   elsif x.saturday?
     puts x.day.to_s.center(3)
-  
   elsif x == last_day && x == Date.today 
     puts "\e[7m#{x.day.to_s.rjust(2)}\e[0m\s"
-  
   elsif x == last_day 
     puts x.day.to_s.center(3)
-  
   elsif x == Date.today && x == Date.today
     print "\e[7m#{x.day.to_s.rjust(2)}\e[0m\s"
-  
   else x == Date.today
     print x.day.to_s.center(3)
   end
