@@ -14,30 +14,26 @@ scores.each do |s|
   end
 end
 
-frames = []
-shots.each_slice(2) do |s|
-  frames << s
-end
+frames = shots.each_slice(2).to_a
 
-point = 0
-frames.each_with_index do |frame, index|
+point = frames.each_with_index.sum do |frame, index|
   next_frame = frames[index + 1]
   next2_frame = frames[index + 2]
-  point += if index < 9 # 1〜9フレーム目までの計算
-             if frame[0] == 10 && next_frame[0] == 10 && next2_frame[0] == 10 # 3フレームストライクだった場合
-               20 + next2_frame[0]
-             elsif frame[0] == 10 && next_frame[0] == 10 # 2フレームストライクだった場合
-               20 + next2_frame[0]
-             elsif frame[0] == 10 # ストライクの場合
-               10 + next_frame[0] + next_frame[1]
-             elsif frame.sum == 10 # スペアの場合
-               frame.sum + next_frame[0]
-             else # 合計が9未満の場合
-               frame.sum
-             end
-           else # 10フレームの計算
-             frame.sum
-           end
+
+  bonus_point = 0
+
+  if index < 9 # 1〜9フレーム目までの計算
+    if frame[0] == 10 # ストライクの場合
+      bonus_point = if next_frame[0] == 10 # 2フレームストライクだった場合
+                      next_frame[0] + next2_frame[0]
+                    else
+                      next_frame[0] + next_frame[1]
+                    end
+    elsif frame.sum == 10 # スペアの場合
+      bonus_point = next_frame[0]
+    end
+  end
+  frame.sum + bonus_point
 end
 
 puts point
