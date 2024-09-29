@@ -24,11 +24,7 @@ point = frames.each_with_index.sum do |frame, index|
 
   if index < 9 # 1〜9フレーム目までの計算
     if frame[0] == 10 # ストライクの場合
-      bonus_point = next_frame[0] + if next_frame[0] == 10 # 2フレームストライクだった場合
-                                      next2_frame[0]
-                                    else
-                                      next_frame[1]
-                                    end
+      bonus_point = next_frame[0] + (next_frame[0] == 10 ? next2_frame[0] : next_frame[1])
     elsif frame.sum == 10 # スペアの場合
       bonus_point = next_frame[0]
     end
