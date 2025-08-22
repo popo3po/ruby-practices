@@ -10,7 +10,6 @@ end
 
 def align_ranges(current_directory_files)
   files = []
-  # binding.break
   max_name_length = current_directory_files.map(&:length).max
 
   current_directory_files.each do |file|
